@@ -9,6 +9,7 @@ const checkToken = async (req, res, next) => {
       accessToken = await jwt.verify(req.body.accessToken, 'SECRETACCESS')
       //Если токен правильный, то пускаем пользователя дальше
       console.log('accessToken is ok')
+      res.login = accessToken.login
     } catch (err) {
       console.log(err)
       res.status(500).send('Ошибка токена.')
@@ -30,6 +31,8 @@ const checkToken = async (req, res, next) => {
         'SECRETACCESS'
       )
 
+      res.login = refreshToken.login
+
       refreshToken = await jwt.sign(
         {
           exp: Math.floor(Date.now() / 1000) + 60 * 60,
@@ -37,11 +40,6 @@ const checkToken = async (req, res, next) => {
         },
         'SECRETREFRESH'
       )
-
-      res.status(200).send({
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      })
     } catch (err) {
       console.log(err)
       res.status(500).send('Ошибка токена.')

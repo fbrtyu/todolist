@@ -25,17 +25,17 @@ Auth.belongsTo(User, {
   foreignKey: {
     name: 'idUser',
     allowNull: false,
-    onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
 })
 
-TaskOfUser.belongsTo(User, {
+TaskOfUser.belongsTo(User, {as: "Task",
   foreignKey: {
     name: 'idUser',
     allowNull: false,
-    onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
 })
 
@@ -43,8 +43,8 @@ TaskOfUser.belongsTo(Task, {
   foreignKey: {
     name: 'idTask',
     allowNull: false,
-    onDelete: 'RESTRICT',
-    onUpdate: 'RESTRICT',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
 })
 

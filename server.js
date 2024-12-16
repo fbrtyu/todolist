@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const bp = require('body-parser')
 require('dotenv').config()
 const getTask = require('./routes/get')
 const createTask = require('./routes/create')
@@ -20,11 +19,11 @@ const corsOptions = {
 try {
   const server = express()
   server.use(cors(corsOptions))
-  server.use(bp.json())
-  server.use(bp.urlencoded({ extended: true }))
+  server.use(express.json())
+  server.use(express.urlencoded({ extended: true }))
 
-  server.use(logger)
   server.use(checkToken)
+  server.use(logger)
 
   const PORT = process.env.PORT
 

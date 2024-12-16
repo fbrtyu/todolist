@@ -3,9 +3,10 @@ const router = express.Router()
 const getalltasks = require('../services/getalltasks')
 const gettaskid = require('../services/gettaskid')
 
-router.get('/all', (req, res) => {
+router.post('/all', async (req, res) => {
   try {
-    const answer = JSON.stringify(getalltasks.getalltasks())
+    const answer = JSON.stringify(await getalltasks.getalltasks(req, res))
+    console.log(answer)
     res.setHeader('Content-Type', 'application/json')
     res.status(200).send(answer)
   } catch (err) {

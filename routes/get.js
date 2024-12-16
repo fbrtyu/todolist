@@ -1,10 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const logger = require('../middlewares/logger')
 const getalltasks = require('../services/getalltasks')
 const gettaskid = require('../services/gettaskid')
-
-router.use(logger)
 
 router.get('/all', (req, res) => {
   try {

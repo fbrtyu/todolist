@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const logger = require('../middlewares/logger')
 const createtask = require('../services/createtask')
-
-router.use(logger)
 
 router.post('/new', (req, res) => {
   const answer = createtask.createtask(

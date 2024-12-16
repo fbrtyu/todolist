@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const logger = require('../middlewares/logger')
 const updatetask = require('../services/updatetask')
-
-router.use(logger)
 
 router.patch('/:id', (req, res) => {
   try {

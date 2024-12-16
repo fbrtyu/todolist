@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const logger = require('../middlewares/logger')
 const deletetask = require('../services/deletetask')
-
-router.use(logger)
 
 router.delete('/:id', (req, res) => {
   try {

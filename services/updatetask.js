@@ -1,19 +1,24 @@
-const data = require('./database')
+const db = require('../database/models/sequelize/index')
 
-let updatetask = (id, title, description, status) => {
-  let updateElement = null
-  for (const [index, element] of data.data.entries()) {
-    if (element.id === id) {
-      data.data[index].title = title ? title : data.data[index].title
-      data.data[index].description = description
-        ? description
-        : data.data[index].description
-      data.data[index].status = status ? status : data.data[index].status
-      updateElement = element
-    }
+let updatetask = async (id, title, description, status) => {
+  try {
+    task = await db.db.Task.update(
+      {
+        title: title,
+        description: description,
+        status: status,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    )
+    return 200
+  } catch (err) {
+    console.log(err)
+    return 500
   }
-
-  return updateElement ? updateElement : 500
 }
 
 exports.updatetask = updatetask

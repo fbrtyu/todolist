@@ -1,14 +1,17 @@
-const data = require('./database')
+const db = require('../database/models/sequelize/index')
 
-let deletetask = (id) => {
-  let deleteElement = null
-  for (const [index, element] of data.data.entries()) {
-    if (element.id === id) {
-      deleteElement = element
-      data.data.splice(index, 1)
-    }
+let deletetask = async (id) => {
+  try {
+    task = await db.db.TaskOfUser.destroy({
+      where: {
+        idTask: id,
+      },
+    })
+    return 200
+  } catch (err) {
+    console.log(err)
+    return 500
   }
-  return deleteElement ? deleteElement : 500
 }
 
 exports.deletetask = deletetask

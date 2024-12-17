@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const createtask = require('../services/createtask')
+const createtask = require('../services/createTask')
 
-router.post('/new', (req, res) => {
-  const answer = createtask.createtask(
+router.post('/new', async (req, res) => {
+  const answer = await createtask.createtask(
     req.body.title,
     req.body.description,
-    req.body.status
+    req.body.status,
+    res.login
   )
   if (answer === 201) {
     res.status(201).send('Вы успешно создали новую задачу.')

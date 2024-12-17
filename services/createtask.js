@@ -1,14 +1,24 @@
-const data = require('./database')
 const { v4: uuidv4 } = require('uuid')
+const db = require('../database/models/sequelize/index')
 
-let createtask = (title, description, status) => {
+let createtask = async (title, description, status, login) => {
   try {
-    data.data.push({
-      id: uuidv4(),
+    let taskId = uuidv4()
+
+    user = await db.db.Auth.findOne({ where: { login: login } })
+
+    task = await db.db.Task.create({
+      id: taskId,
       title: title,
       description: description,
       status: status,
     })
+
+    await db.db.TaskOfUser.create({
+      idUser: user.idUser,
+      idTask: taskId,
+    })
+
     return 201
   } catch (err) {
     console.log(err)

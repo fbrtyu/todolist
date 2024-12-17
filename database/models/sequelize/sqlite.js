@@ -30,7 +30,8 @@ Auth.belongsTo(User, {
   },
 })
 
-TaskOfUser.belongsTo(User, {as: "Task",
+TaskOfUser.belongsTo(User, {
+  as: 'Task',
   foreignKey: {
     name: 'idUser',
     allowNull: false,

@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const db = require('../database/models/sequelize/index')
-const updateTokens = require("./updateTokens")
+const updateTokens = require('./updateTokens')
 
 let login = async (login, password) => {
   try {

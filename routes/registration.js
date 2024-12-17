@@ -10,8 +10,7 @@ router.post('/newuser', async (req, res) => {
   )
   if (answer !== undefined && answer.status === 200) {
     res.status(200).send(answer)
-  }
-  if (answer === 500) {
+  } else {
     res.status(500).send('Такой логин уже используется.')
   }
 })

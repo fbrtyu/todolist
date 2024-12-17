@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const deletetask = require('../services/deletetask')
+const deletetask = require('../services/deleteTask')
 
 router.delete('/:id', (req, res) => {
   try {

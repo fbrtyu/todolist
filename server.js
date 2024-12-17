@@ -10,6 +10,7 @@ const registration = require('./routes/registration')
 const db = require('./database/models/sequelize/index')
 const checkToken = require('./middlewares/checkToken')
 const logger = require("./middlewares/logger")
+const deleteUser = require('./routes/deleteUser')
 
 const corsOptions = {
   origin: '*',
@@ -33,6 +34,7 @@ try {
   server.use('/delete', deleteTask)
   server.use('/login', login)
   server.use('/registration', registration)
+  server.use('/user', deleteUser)
 
   server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)

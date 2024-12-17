@@ -1,12 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const getalltasks = require('../services/getalltasks')
-const gettaskid = require('../services/gettaskid')
+const getalltasks = require('../services/getAllTasks')
+const gettaskid = require('../services/getTaskId')
 
 router.post('/all', async (req, res) => {
   try {
     const answer = JSON.stringify(await getalltasks.getalltasks(req, res))
-    console.log(answer)
     res.setHeader('Content-Type', 'application/json')
     res.status(200).send(answer)
   } catch (err) {

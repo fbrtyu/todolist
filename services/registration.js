@@ -57,7 +57,6 @@ let registration = async (login, password_1, password_2) => {
             refreshToken: refreshToken,
           })
         })
-
         return {
           accessToken: accessToken,
           refreshToken: refreshToken,

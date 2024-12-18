@@ -4,7 +4,10 @@ const deleteUser = require('../services/deleteUser')
 
 router.delete('/delete', async (req, res) => {
   try {
-    const answer = await deleteUser.deleteUser(req.body.login, req.body.password)
+    const answer = await deleteUser.deleteUser(
+      req.body.login,
+      req.body.password
+    )
     if (answer !== 500) {
       res.status(200).send('Учётная запись пользователя удалена.')
     } else {

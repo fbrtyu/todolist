@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const deletetask = require('../services/deleteTask')
+const deleteTask = require('../services/deleteTask')
 
 router.delete('/:id', (req, res) => {
   try {
-    const answer = deletetask.deletetask(req.params.id)
+    const answer = deleteTask.deleteTask(req.params.id)
     if (answer !== 500) {
       res.status(200).send('Задача успешно удалена.')
     } else {

@@ -1,6 +1,6 @@
 const db = require('../database/models/sequelize/index')
 
-let deletetask = async (id) => {
+let deleteTask = async (id) => {
   try {
     task = await db.db.TaskOfUser.destroy({
       where: {
@@ -14,4 +14,4 @@ let deletetask = async (id) => {
   }
 }
 
-exports.deletetask = deletetask
+exports.deleteTask = deleteTask

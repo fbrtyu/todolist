@@ -1,11 +1,17 @@
 const { Sequelize } = require('sequelize')
 
-console.log(global)
+// Не читает global
+console.log(global.config)
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: './db.sqlite3',
 })
+
+const User = require('../User')(sequelize)
+const Task = require('../Task')(sequelize)
+const Auth = require('../Auth')(sequelize)
+const TaskOfUser = require('../TaskOfUser')(sequelize)
 
 async function testConnectionDB() {
   try {
@@ -18,10 +24,8 @@ async function testConnectionDB() {
 
 testConnectionDB()
 
-const User = require('../User')(sequelize)
-const Task = require('../Task')(sequelize)
-const Auth = require('../Auth')(sequelize)
-const TaskOfUser = require('../TaskOfUser')(sequelize)
+// Связь между таблицами, но видимо CASCADE в sequalize не работает как надо
+// Пока не смог найти решение
 
 Auth.belongsTo(User, {
   foreignKey: {

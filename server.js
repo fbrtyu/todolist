@@ -9,8 +9,9 @@ const login = require('./routes/login')
 const registration = require('./routes/registration')
 const db = require('./database/models/sequelize/index')
 const checkToken = require('./middlewares/checkToken')
-const logger = require("./middlewares/logger")
+const logger = require('./middlewares/logger')
 const deleteUser = require('./routes/deleteUser')
+const fs = require('node:fs')
 
 const corsOptions = {
   origin: '*',
@@ -18,8 +19,41 @@ const corsOptions = {
 }
 
 try {
-  //Проверка есть ли файл config.json
-  global.config = 4
+  //Проверка есть ли файл config.json и его создание
+  fs.access('config.json', fs.constants.F_OK, async (err) => {
+    if (err) {
+      try {
+        fs.readFile('config/default-config.json', async (err, data) => {
+          if (err) {
+            console.log(err)
+          } else {
+            fs.writeFile('config.json', data, async (err) => {
+              if (err) {
+                console.log(err)
+              } else {
+                //Запись в global, но не могу прочитать из global
+                global.config = await JSON.parse(data.toString())
+                console.log('Файл config.json успешно создан!')
+              }
+            })
+          }
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      fs.readFile("config.json", async (err, data)=>{
+        if(err) {
+          console.log(err)
+        } else {
+          //Запись в global, но не могу прочитать из global
+          global.config = await JSON.parse(data.toString())
+          console.log('Файл config.json уже существует!')
+        }
+      })
+    }
+  })
+
   const server = express()
   server.use(cors(corsOptions))
   server.use(express.json())

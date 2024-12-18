@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const db = require('../database/models/sequelize/index')
 const { v4: uuidv4 } = require('uuid')
+require('dotenv').config()
 
 const saltRounds = 10
 
@@ -24,20 +25,20 @@ let registration = async (login, password_1, password_2) => {
       } else {
         //Если нет, то хеширование пароля и добавление записи в БД
         //Генерация токенов и отдача их пользователю
-        const accessToken = await jwt.sign(
+        const accessToken = jwt.sign(
           {
             exp: Math.floor(Date.now() / 1000) + (60 * 60) / 2,
             login: login,
           },
-          'SECRETACCESS'
+          process.env.SECRETACCESS
         )
 
-        const refreshToken = await jwt.sign(
+        const refreshToken = jwt.sign(
           {
             exp: Math.floor(Date.now() / 1000) + 60 * 60,
             login: login,
           },
-          'SECRETREFRESH'
+          process.env.SECRETREFRESH
         )
 
         const uid = uuidv4()

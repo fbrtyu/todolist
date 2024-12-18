@@ -10,7 +10,7 @@ let deleteUser = async (login, password) => {
           await bcrypt.compare(password, currentUser[0].dataValues.password)
         ) {
           try {
-            // onDelete cascade, но почему то это не работает, 
+            // onDelete cascade, но почему то это не работает,
             // при удалении родительской записи, зависимая не удаляется
             auth = await db.db.Auth.destroy({
               where: { idUser: currentUser[0].dataValues.idUser },

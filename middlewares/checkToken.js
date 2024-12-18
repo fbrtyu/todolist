@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const checkToken = async (req, res, next) => {
   let accessToken
@@ -6,9 +7,10 @@ const checkToken = async (req, res, next) => {
   //Тут брать данные из req и если они есть, то проверять
   if (req.body.accessToken) {
     try {
-      accessToken = await jwt.verify(req.body.accessToken, 'SECRETACCESS')
+      accessToken = jwt.verify(req.body.accessToken, process.env.SECRETACCESS)
       //Если токен правильный, то пускаем пользователя дальше
-      console.log('accessToken is ok')
+      //В res добавляю login,
+      // чтобы в следующем route его использовать для поиска в БД
       res.login = accessToken.login
     } catch (err) {
       console.log(err)
@@ -19,26 +21,28 @@ const checkToken = async (req, res, next) => {
 
   if (req.body.refreshToken) {
     try {
-      refreshToken = await jwt.verify(req.body.refreshToken, 'SECRETREFRESH')
-      //Если токен правильный, то обновляем все токены
-      console.log('refreshToken is ok')
+      refreshToken = jwt.verify(
+        req.body.refreshToken,
+        process.env.SECRETREFRESH
+      )
 
-      accessToken = await jwt.sign(
+      //Если токен правильный, то обновляем все токены
+      accessToken = jwt.sign(
         {
           exp: Math.floor(Date.now() / 1000) + (60 * 60) / 2,
           login: refreshToken.login,
         },
-        'SECRETACCESS'
+        process.env.SECRETACCESS
       )
 
       res.login = refreshToken.login
 
-      refreshToken = await jwt.sign(
+      refreshToken = jwt.sign(
         {
           exp: Math.floor(Date.now() / 1000) + 60 * 60,
           login: refreshToken.login,
         },
-        'SECRETREFRESH'
+        process.env.SECRETREFRESH
       )
     } catch (err) {
       console.log(err)

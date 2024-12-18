@@ -1,6 +1,6 @@
 const db = require('../database/models/sequelize/index')
 
-let updatetask = async (id, title, description, status) => {
+let updateTask = async (id, title, description, status) => {
   try {
     task = await db.db.Task.update(
       {
@@ -21,4 +21,4 @@ let updatetask = async (id, title, description, status) => {
   }
 }
 
-exports.updatetask = updatetask
+exports.updateTask = updateTask

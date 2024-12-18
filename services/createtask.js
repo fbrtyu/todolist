@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid')
 const db = require('../database/models/sequelize/index')
 
-let createtask = async (title, description, status, login) => {
+let createTask = async (title, description, status, login) => {
   try {
     let taskId = uuidv4()
 
@@ -26,4 +26,4 @@ let createtask = async (title, description, status, login) => {
   }
 }
 
-exports.createtask = createtask
+exports.createTask = createTask

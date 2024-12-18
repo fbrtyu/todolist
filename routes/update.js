@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const updatetask = require('../services/updateTask')
+const updateTask = require('../services/updateTask')
 
 router.patch('/:id', (req, res) => {
   try {
-    const answer = updatetask.updatetask(
+    const answer = updateTask.updateTask(
       req.params.id,
       req.body.title,
       req.body.description,

@@ -18,6 +18,8 @@ const corsOptions = {
 }
 
 try {
+  //Проверка есть ли файл config.json
+  global.config = 4
   const server = express()
   server.use(cors(corsOptions))
   server.use(express.json())

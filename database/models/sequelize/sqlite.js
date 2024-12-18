@@ -1,5 +1,7 @@
 const { Sequelize } = require('sequelize')
 
+console.log(global)
+
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: './db.sqlite3',

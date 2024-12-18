@@ -1,0 +1,13 @@
+{
+  "db": {
+    "databaseEngine": "sqlite",
+    "host": "",
+    "port": 5432,
+    "database": "todolist",
+    "login": "admin",
+    "password": "admin",
+    "dialect": "sqlite",
+    "storage": "./db.sqlite3"
+  },
+  "ServerPort": 3001
+}
